@@ -1,5 +1,7 @@
 package io.quarkiverse.jberet.rest.deployment;
 
+import io.quarkiverse.jberet.rest.runtime.JBeretRestProducer;
+import io.quarkus.arc.deployment.AdditionalBeanBuildItem;
 import io.quarkus.deployment.annotations.BuildProducer;
 import io.quarkus.deployment.annotations.BuildStep;
 import io.quarkus.deployment.builditem.CapabilityBuildItem;
@@ -19,5 +21,12 @@ public class JBeretRestProcessor {
             BuildProducer<ResteasyJaxrsProviderBuildItem> providers) {
 
         indexDependency.produce(new IndexDependencyBuildItem("org.jberet", "jberet-rest-api"));
+    }
+
+    @BuildStep
+    public void additionalBeans(
+            BuildProducer<AdditionalBeanBuildItem> additionalBeans) {
+
+        additionalBeans.produce(new AdditionalBeanBuildItem(JBeretRestProducer.class));
     }
 }
